@@ -93,8 +93,13 @@ update computer mario =
         gravityApplied
       else
         min jumpCutoff gravityApplied  -- jump key released, limit speed to allow var height jumps
-
-    newX = mario.x + dt * vx
+        
+    newX = 
+      if mario.x < -computer.screen.width then 
+        computer.screen.width
+      else if mario.x > computer.screen.width then 
+        -computer.screen.width
+      else mario.x + dt * vx
     newY = max 0 (mario.y + dt * vy)
   in
     { mario
